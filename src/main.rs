@@ -12,8 +12,6 @@ use libp2p::{
 	yamux, PeerId, Transport as TransportTrait,
 };
 
-use crate::mdns::tokio::Behaviour;
-
 const TWO_HOURS: Duration = Duration::from_secs(60 * 60 * 2);
 
 #[tokio::main]
@@ -45,7 +43,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 	// let kademlia = Kademlia::with_config(local_peer_id.clone(), kad_store, kad_cfg);
 
 	// Create an mDNS behaviour
-	let mdns: mdns::Behaviour<_> = Behaviour::new(Config::default(), local_peer_id).unwrap();
+	let mdns: mdns::Behaviour<_> =
+		mdns::tokio::Behaviour::new(Config::default(), local_peer_id).unwrap();
 
 	// Compose all the behaviours into a "Swarm"
 	let mut swarm = SwarmBuilder::with_tokio_executor(transport, mdns, local_peer_id).build();
