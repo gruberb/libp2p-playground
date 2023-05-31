@@ -1,0 +1,9 @@
+[package]
+name = "libp2p-playground"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libp2p = { version = "0.51", features = ["tokio", "dns", "noise", "tcp", "websocket", "yamux", "mdns", "kad"] }
+tokio = { version = "1", features = ["full"] }
+futures = "0.3.15"
